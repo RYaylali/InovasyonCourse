@@ -15,9 +15,6 @@ namespace InovasyonCourse.BussinessLayer.Abstract
 		bool UpdateStudent(UpdateStudentDTO model);
 		bool DeleteStudent(long id);
 		List<Courses> GetCourses();
-
-		//Task<IQueryable<ListOfPersonnelVM>> GetAllPersonnel();
-		//Task<AppCompany> GetCompany(Guid Id);
-		//Task<List<AppUser>> GetAllPersonnelByCompanyID(Guid? id);
+		List<Users> GetUsers();
 	}
 }

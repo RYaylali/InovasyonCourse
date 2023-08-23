@@ -12,8 +12,11 @@ namespace InovasyonCourse.CoreLayer
         [Key]//Id olduğunu belirtmek için
         public string CourseId { get; set; }
         public string CourseName { get; set; }
-        //Navigasyon prop Bir kişi aynı dersi bir kere seçer. Çünkü bir derste bir kişiden iki tane olamaz
-        public long?  UserId { get; set; }
-        public virtual Users? Users { get; set; }
-    }
+		//Navigasyon prop 
+		public virtual ICollection<UserCourse> UserCourses { get; set; }
+		public Courses()
+		{
+			UserCourses = new HashSet<UserCourse>();//nesneleri benzersiz olması için hashset kullandım aynı ilandan açmaması için eğer birden fazla ekleme yapılırsa hashset bir kopya tutar
+		}
+	}
 }

@@ -1,4 +1,5 @@
-﻿using InovasyonCourse.CoreLayer;
+﻿using InovasyonCourse.BussinessLayer.Model.DTOs;
+using InovasyonCourse.CoreLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace InovasyonCourse.BussinessLayer.Abstract
 	{
 		List<Courses> GetCourses();
 		List<Users> GetStudents();
+		Courses GetByCodeCourse(string code);
 		Users GetByCodeStudent(long code);
+		void Maching(Users student, StudentMachingCourseDTO addStudentDto);
 	}
 }

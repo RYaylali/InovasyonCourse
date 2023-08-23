@@ -2,6 +2,7 @@
 using InovasyonCourse.BussinessLayer.Abstract;
 using InovasyonCourse.BussinessLayer.Model.DTOs;
 using InovasyonCourse.CoreLayer;
+using InovasyonCourse.CoreLayer.Enums;
 using InovasyonCourse.DataAccessLayer.Abstract;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace InovasyonCourse.BussinessLayer.Concrete
 			if (model is not null)
 			{
 				var create = _mapper.Map<Users>(model);
+				create.Role = Role.Student;
 				_userDal.Insert(create);
 				return "Create Student";
 			}
@@ -36,7 +38,7 @@ namespace InovasyonCourse.BussinessLayer.Concrete
 
 		public bool DeleteStudent(long id)
 		{
-			var user= _userDal.GetByID(id);
+			var user = _userDal.GetByCodeStudentID(id);
 			if (user != null)
 			{
 				_userDal.Delete(user);
@@ -49,20 +51,39 @@ namespace InovasyonCourse.BussinessLayer.Concrete
 		{
 			return _courseDal.GetList();
 		}
-
-		public List<Users> GetStudents()
+		public List<Users> GetUsers()
 		{
 			return _userDal.GetList();
 		}
 
+		public List<Users> GetStudents()
+		{
+			List<Users> students = new List<Users>();
+			var getUsers = _userDal.GetList();
+			foreach (var student in getUsers)
+			{
+				if (student.Role == Role.Student)
+				{
+					students.Add(student);
+				}
+			}
+			return students;
+		}
+
 		public bool UpdateStudent(UpdateStudentDTO model)
 		{
-			if (model is not null)
+			 var existingUser = _userDal.GetByCodeStudentID(model.UserId);
+			if (existingUser != null)
 			{
-				var create = _mapper.Map<Users>(model);
-				_userDal.Update(create);
+				existingUser.FirstName = model.FirstName;
+				existingUser.LastName = model.LastName;
+				existingUser.BirthDate = model.BirthDate;
+				existingUser.Password = model.Password;
+				existingUser.Role=Role.Student;
+				_userDal.Update(existingUser);
 				return true;
 			}
+
 			return false;
 		}
 	}

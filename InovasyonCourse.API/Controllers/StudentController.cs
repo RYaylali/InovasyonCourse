@@ -42,20 +42,16 @@ namespace InovasyonCourse.API.Controllers
 			return BadRequest("Not list");
 		}
 		[HttpPost]
-		public IActionResult CorseMaching(long studentCode,string courseId)
+		public IActionResult CorseMaching(StudentMachingCourseDTO model)
 		{
-			var student = _studentService.GetByCodeStudent(studentCode);
-			if (student != null && student.Courses.Any(x => x.CourseId != courseId))
+			var student = _studentService.GetByCodeStudent(model.UserId);
+			var courseBuy = _studentService.GetByCodeCourse(model.CourseId);
+			if (student != null && student.UserCourses.All(x => x.CourseId != model.CourseId))
 			{
-				Courses user = new Courses()
-				{
-					UserId = studentCode,
-				};
-				var studentCourse = _mapper.Map<UpdateStudentDTO>(user);
-				_adminService.UpdateStudent(studentCourse);
+				_studentService.Maching(student,model);
 				return Ok(student);
 			}
-			return BadRequest("Not student");
+			return BadRequest("Student already enrolled in the course");
 		}
 	}
 }

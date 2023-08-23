@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace InovasyonCourse.BussinessLayer.Model.DTOs
 {
-	public class UpdateStudentDTO
+	public class StudentMachingCourseDTO
 	{
+		public string CourseId { get; set; }
 		public long UserId { get; set; }
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public DateTime BirthDate { get; set; }
-		public string Password { get; set; }
-
-	}
+    }
 }

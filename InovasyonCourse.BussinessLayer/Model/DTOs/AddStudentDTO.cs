@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace InovasyonCourse.BussinessLayer.Model.DTOs
 {
-	public	 class AddStudentDTO
+	public class AddStudentDTO
 	{
-		public long UserId { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public DateTime BirthDate { get; set; }
-		public Role Role => Role.Student;
+		public string Password { get; set; }
+		public List<string>? CourseIds { get; set; }
 	}
 }

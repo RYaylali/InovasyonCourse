@@ -17,13 +17,22 @@ namespace InovasyonCourse.DataAccessLayer.Concrete
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Courses>()
-				.HasOne(c => c.Users)
-				.WithMany(u => u.Courses)
-				.HasForeignKey(c => c.UserId);
+			modelBuilder.Entity<UserCourse>()
+	   .HasKey(uc => new { uc.UserId, uc.CourseId });//tabloda birden fazla ıd var ara tablo olduğu için onu bildirdim. Bu tablo öğrenci kursu seçebilmesi için
+
+			modelBuilder.Entity<UserCourse>()
+				.HasOne(uc => uc.Users)
+				.WithMany(u => u.UserCourses)
+				.HasForeignKey(uc => uc.UserId);
+
+			modelBuilder.Entity<UserCourse>()
+				.HasOne(uc => uc.Courses)
+				.WithMany(c => c.UserCourses) 
+				.HasForeignKey(uc => uc.CourseId);
 		}
-		public DbSet<Courses> Courses { get; set; }
-		public DbSet<Users> Users { get; set; }
-		
+		public virtual DbSet<Courses> Courses { get; set; } = null!;
+		public virtual DbSet<Users> Users { get; set; } = null!;
+		public virtual DbSet<UserCourse> UserCourses { get; set; } = null!;
+
 	}
 }

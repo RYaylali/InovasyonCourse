@@ -16,6 +16,7 @@ namespace InovasyonCourse.DataAccessLayer.Extensions
 		{
 			services.AddScoped<ICourseDal, EFCourseDal>();
 			services.AddScoped<IUserDal, EFUserDal>();
+			services.AddScoped<IUserCourseDal, EFUserCourseDal>();
 			return services;
 		}
 	}

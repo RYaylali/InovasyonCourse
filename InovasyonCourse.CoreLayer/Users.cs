@@ -15,13 +15,14 @@ namespace InovasyonCourse.CoreLayer
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public DateTime BirthDate { get; set; }
+        public string Password { get; set; }
 		public Role Role { get; set; }
 
 		//Navigasyon prop birden fazla DERSİ KULLANICI seçebilir
-        public virtual ICollection<Courses> Courses { get; set; }
+        public virtual ICollection<UserCourse> UserCourses { get; set; }
         public Users()
         {
-            Courses= new HashSet<Courses>();//nesneleri benzersiz olması için hashset kullandım aynı ilandan açmaması için eğer birden fazla ekleme yapılırsa hashset bir kopya tutar
+            UserCourses= new HashSet<UserCourse>();//nesneleri benzersiz olması için hashset kullandım aynı ilandan açmaması için eğer birden fazla ekleme yapılırsa hashset bir kopya tutar
 		}
     }
 }

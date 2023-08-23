@@ -4,6 +4,7 @@ using InovasyonCourse.DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InovasyonCourse.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230823165455_mig_2")]
+    partial class mig_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,24 +33,14 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CourseId");
-
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("InovasyonCourse.CoreLayer.UserCourse", b =>
-                {
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CourseId")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasKey("CourseId");
 
-                    b.HasKey("UserId", "CourseId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("UserCourses");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("InovasyonCourse.CoreLayer.Users", b =>
@@ -82,33 +74,18 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("InovasyonCourse.CoreLayer.UserCourse", b =>
+            modelBuilder.Entity("InovasyonCourse.CoreLayer.Courses", b =>
                 {
-                    b.HasOne("InovasyonCourse.CoreLayer.Courses", "Courses")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("InovasyonCourse.CoreLayer.Users", "Users")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Courses");
+                        .WithMany("Courses")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("InovasyonCourse.CoreLayer.Courses", b =>
-                {
-                    b.Navigation("UserCourses");
-                });
-
             modelBuilder.Entity("InovasyonCourse.CoreLayer.Users", b =>
                 {
-                    b.Navigation("UserCourses");
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

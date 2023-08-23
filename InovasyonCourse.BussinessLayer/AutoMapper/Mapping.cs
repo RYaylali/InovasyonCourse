@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InovasyonCourse.BussinessLayer.Model.DTOs;
+using InovasyonCourse.BussinessLayer.Model.VMs;
 using InovasyonCourse.CoreLayer;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace InovasyonCourse.BussinessLayer.AutoMapper
         {
 			CreateMap<Users, AddStudentDTO>().ReverseMap();
 			CreateMap<Users, UpdateStudentDTO>().ReverseMap();
+			CreateMap<Users, LoginVM>().ReverseMap();
+			CreateMap<Courses, StudentMachingCourseDTO>().ReverseMap();
+			CreateMap<StudentMachingCourseDTO, UpdateStudentDTO>().ReverseMap();
 		}
     }
 }

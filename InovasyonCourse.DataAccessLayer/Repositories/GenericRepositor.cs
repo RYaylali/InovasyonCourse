@@ -23,7 +23,11 @@ namespace InovasyonCourse.DataAccessLayer.Repositories
 			_context.SaveChanges();
 		}
 
-		public T GetByID(long id)
+		public T GetByCodeStudentID(long id)
+		{
+			return _context.Set<T>().Find(id);
+		}
+		public T GetByCodeCourseID(string id)
 		{
 			return _context.Set<T>().Find(id);
 		}
