@@ -11,15 +11,15 @@ namespace InovasyonCourse.API.Controllers
 	[ApiController]
 	public class StudentController : ControllerBase
 	{
-		private readonly IAdminService _adminService;
+		private readonly IUserCourseService _userCourseService;
 		private readonly IStudentService _studentService;
 		private readonly IMapper _mapper;
 
-		public StudentController(IAdminService adminService, IMapper mapper, IStudentService studentervice)
+		public StudentController(IMapper mapper, IStudentService studentervice, IUserCourseService userCourseService)
 		{
-			_adminService = adminService;
 			_mapper = mapper;
 			_studentService = studentervice;
+			_userCourseService = userCourseService;
 		}
 		[HttpGet("StudentList")]
 		public IActionResult GetAllStudents()

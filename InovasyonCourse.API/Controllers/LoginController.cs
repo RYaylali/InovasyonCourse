@@ -16,6 +16,7 @@ namespace InovasyonCourse.API.Controllers
 		{
 			_adminService = adminService;
 		}
+		static long userLogiId;
 		[HttpPost]
 		public IActionResult Login(LoginVM model)
 		{
@@ -23,6 +24,7 @@ namespace InovasyonCourse.API.Controllers
 			var isThereUser=users.SingleOrDefault(x=>x.UserId == model.UserId && x.Password==model.Password);
 			if (isThereUser!=null)
 			{
+				userLogiId = isThereUser.UserId;
 				return Ok(isThereUser);
 			}
 			return BadRequest("There is no such user. Try again");//Böyle bir kullanıcı yok. Tekrar deneyiniz

@@ -1,4 +1,4 @@
-using InovasyonCourse.BussinessLayer.Extensions;
+﻿using InovasyonCourse.BussinessLayer.Extensions;
 using InovasyonCourse.DataAccessLayer.Concrete;
 using InovasyonCourse.DataAccessLayer.Extensions;
 
@@ -11,7 +11,21 @@ namespace InovasyonCourse.API
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services
 				.AddEFCoreServices(builder.Configuration)
-				.AddBusinessServices();//ioc i�lemlerini yapar
+				.AddBusinessServices();//ioc işlemlerini yapar
+									   //builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+									   //policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//atýlan bütün baþlýk methot ve originleri kabul eder.
+									   //policy.WithOrigins("http://localhost:3000", "https://localhost:3000/").AllowAnyHeader().AllowAnyMethod()//bütün header ve methodlara cevap verir.
+									   //bu yerden gelen istekleri al 
+			builder.Services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(policy =>
+				{
+					policy.AllowAnyOrigin()
+						  .AllowAnyMethod()
+						  .AllowAnyHeader();
+				});
+			});
+
 
 			// Add services to the container.
 			builder.Services.AddDbContext<Context>();
@@ -28,7 +42,7 @@ namespace InovasyonCourse.API
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
-
+			app.UseCors();
 			app.UseHttpsRedirection();
 
 			app.UseAuthorization();

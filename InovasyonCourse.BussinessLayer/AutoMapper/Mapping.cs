@@ -19,6 +19,7 @@ namespace InovasyonCourse.BussinessLayer.AutoMapper
 			CreateMap<Users, LoginVM>().ReverseMap();
 			CreateMap<Courses, StudentMachingCourseDTO>().ReverseMap();
 			CreateMap<StudentMachingCourseDTO, UpdateStudentDTO>().ReverseMap();
+			CreateMap<UserCourse, MyCourseDto>().ReverseMap();
 		}
     }
 }

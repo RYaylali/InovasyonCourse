@@ -9,5 +9,6 @@ namespace InovasyonCourse.DataAccessLayer.Abstract
 {
 	public interface IUserCourseDal:IGenericDal<UserCourse>
 	{
+		List<UserCourse> GetAllUserList(long id);
 	}
 }
