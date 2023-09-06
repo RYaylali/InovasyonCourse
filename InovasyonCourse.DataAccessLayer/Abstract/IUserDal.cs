@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace InovasyonCourse.DataAccessLayer.Abstract
 {
-	public interface IUserDal:IGenericDal<Users>
+	public interface IUserDal:IGenericDal<AppNetUser>
 	{
+		List<AppNetUser> GetUsersList();
 	}
 }

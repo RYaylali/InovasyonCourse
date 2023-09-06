@@ -11,9 +11,9 @@ namespace InovasyonCourse.BussinessLayer.Abstract
 	public interface IStudentService 
 	{
 		List<Courses> GetCourses();
-		List<Users> GetStudents();
+		List<AppNetUser> GetStudents();
 		Courses GetByCodeCourse(string code);
-		Users GetByCodeStudent(long code);
-		void Maching(Users student, StudentMachingCourseDTO addStudentDto);
+		AppNetUser GetByCodeStudent(long code);
+		//void Maching(Users student, StudentMachingCourseDTO addStudentDto);
 	}
 }

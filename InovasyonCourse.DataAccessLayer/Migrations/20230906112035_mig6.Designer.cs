@@ -4,6 +4,7 @@ using InovasyonCourse.DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InovasyonCourse.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230906112035_mig6")]
+    partial class mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,15 +54,15 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0660b32c-6e07-4b35-a49f-951aeb871609"),
-                            ConcurrencyStamp = "74ce42e9-6254-4032-a29c-78b6d69f8781",
+                            Id = new Guid("9a08def7-5b8c-45e7-bf09-02c0d42a5542"),
+                            ConcurrencyStamp = "850b7596-444f-4fbe-91bb-db55b57867e9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("a897856b-fd7b-4bb1-ab38-d38e6a607950"),
-                            ConcurrencyStamp = "7562b4e5-f815-4f1c-960b-0a806d175cf8",
+                            Id = new Guid("767d442b-b4fe-4088-9c3c-48bcd736527b"),
+                            ConcurrencyStamp = "deb93c01-9d34-4549-93d3-14bf970a462e",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -120,6 +122,9 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -145,10 +150,10 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8300c0ef-1013-40b3-be67-93d8eaf125ec"),
+                            Id = new Guid("83730e42-dc94-4983-8746-4c374e1bd751"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1997, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "39abd020-5254-441e-a767-661c044a0a74",
+                            ConcurrencyStamp = "d39cb49b-33a5-4f3a-a507-0e0c7eb11754",
                             Email = "ramazan.yaylali@bilgeadamboost.com",
                             EmailConfirmed = false,
                             FirstName = "Ramazan",
@@ -156,18 +161,19 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "RAMAZAN.YAYLALI@BILGEADAMBOOST.COM",
                             NormalizedUserName = "RAMAZANY",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAi93jRDti1VxERtrfA4hS0dGRQRZwHUeC4iCDE0uQK5bCGJLK+YtbBw5EgzgT5LHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM1KXSARU5XCpW1s6YexQEHy7E8+N8yS/LnHZLbOiC08cwB+a/bD+eciQIXUSnQwCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "492f7394-4d61-4387-9552-5f17d3faff94",
+                            Role = 0,
+                            SecurityStamp = "075704a8-5513-4833-9957-488bf670fd59",
                             TwoFactorEnabled = false,
                             UserName = "RamazanY"
                         },
                         new
                         {
-                            Id = new Guid("5ee3076b-2562-4cc3-ae72-e44f7408a058"),
+                            Id = new Guid("190303a9-df2a-4fe3-990f-61160568f426"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1988, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7a5513bd-ba58-4e45-8c40-c7bb0679d6a4",
+                            ConcurrencyStamp = "f77deb3c-9fb5-4e59-ab7b-18dcf17be443",
                             Email = "hazel.calkar@bilgeadamboost.com",
                             EmailConfirmed = false,
                             FirstName = "Hazel",
@@ -175,9 +181,10 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "HAZEL.CALKAR@BILGEADAMBOOST.COM",
                             NormalizedUserName = "HAZELC",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBePaxZPuec9AEXjCl3U7dNr0ONzAT/GXIo4HV+B7ug5oqswPTRcIncf6oz0DXd6cQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKF4T4UN8i9mkApXMo0rAWC5uTWVyKB74CH8YQ+Cazd8xHPv1rHg+wptbeEO/L/buw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "afa91c0e-0643-430a-8d81-0ae04492a213",
+                            Role = 0,
+                            SecurityStamp = "07cea342-13b5-49c6-906a-3327f7ddc5e9",
                             TwoFactorEnabled = false,
                             UserName = "HazelC"
                         });
@@ -328,13 +335,13 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("8300c0ef-1013-40b3-be67-93d8eaf125ec"),
-                            RoleId = new Guid("0660b32c-6e07-4b35-a49f-951aeb871609")
+                            UserId = new Guid("83730e42-dc94-4983-8746-4c374e1bd751"),
+                            RoleId = new Guid("9a08def7-5b8c-45e7-bf09-02c0d42a5542")
                         },
                         new
                         {
-                            UserId = new Guid("5ee3076b-2562-4cc3-ae72-e44f7408a058"),
-                            RoleId = new Guid("a897856b-fd7b-4bb1-ab38-d38e6a607950")
+                            UserId = new Guid("190303a9-df2a-4fe3-990f-61160568f426"),
+                            RoleId = new Guid("767d442b-b4fe-4088-9c3c-48bcd736527b")
                         });
                 });
 

@@ -10,11 +10,11 @@ namespace InovasyonCourse.BussinessLayer.Abstract
 {
 	public interface IAdminService
 	{
-		List<Users> GetStudents();
-		string CreateStudent(AddStudentDTO model);
+		List<AppNetUser> GetStudents();
+		Task<string> CreateStudent(AddStudentDTO model);
 		bool UpdateStudent(UpdateStudentDTO model);
 		bool DeleteStudent(long id);
 		List<Courses> GetCourses();
-		List<Users> GetUsers();
+		List<AppNetUser> GetUsers();
 	}
 }

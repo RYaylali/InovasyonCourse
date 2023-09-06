@@ -4,6 +4,7 @@ using InovasyonCourse.DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InovasyonCourse.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230906103820_mig5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,6 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0660b32c-6e07-4b35-a49f-951aeb871609"),
-                            ConcurrencyStamp = "74ce42e9-6254-4032-a29c-78b6d69f8781",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("a897856b-fd7b-4bb1-ab38-d38e6a607950"),
-                            ConcurrencyStamp = "7562b4e5-f815-4f1c-960b-0a806d175cf8",
-                            Name = "Student",
-                            NormalizedName = "STUDENT"
-                        });
                 });
 
             modelBuilder.Entity("InovasyonCourse.CoreLayer.AppNetUser", b =>
@@ -111,6 +97,10 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,6 +109,9 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -141,46 +134,6 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8300c0ef-1013-40b3-be67-93d8eaf125ec"),
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1997, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "39abd020-5254-441e-a767-661c044a0a74",
-                            Email = "ramazan.yaylali@bilgeadamboost.com",
-                            EmailConfirmed = false,
-                            FirstName = "Ramazan",
-                            LastName = "YAYLALI",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "RAMAZAN.YAYLALI@BILGEADAMBOOST.COM",
-                            NormalizedUserName = "RAMAZANY",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAi93jRDti1VxERtrfA4hS0dGRQRZwHUeC4iCDE0uQK5bCGJLK+YtbBw5EgzgT5LHQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "492f7394-4d61-4387-9552-5f17d3faff94",
-                            TwoFactorEnabled = false,
-                            UserName = "RamazanY"
-                        },
-                        new
-                        {
-                            Id = new Guid("5ee3076b-2562-4cc3-ae72-e44f7408a058"),
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1988, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7a5513bd-ba58-4e45-8c40-c7bb0679d6a4",
-                            Email = "hazel.calkar@bilgeadamboost.com",
-                            EmailConfirmed = false,
-                            FirstName = "Hazel",
-                            LastName = "ÇALKAR",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HAZEL.CALKAR@BILGEADAMBOOST.COM",
-                            NormalizedUserName = "HAZELC",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBePaxZPuec9AEXjCl3U7dNr0ONzAT/GXIo4HV+B7ug5oqswPTRcIncf6oz0DXd6cQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "afa91c0e-0643-430a-8d81-0ae04492a213",
-                            TwoFactorEnabled = false,
-                            UserName = "HazelC"
-                        });
                 });
 
             modelBuilder.Entity("InovasyonCourse.CoreLayer.Courses", b =>
@@ -287,17 +240,11 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -317,25 +264,6 @@ namespace InovasyonCourse.DataAccessLayer.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("InovasyonCourse.CoreLayer.AspNetUserRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
-
-                    b.HasDiscriminator().HasValue("AspNetUserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("8300c0ef-1013-40b3-be67-93d8eaf125ec"),
-                            RoleId = new Guid("0660b32c-6e07-4b35-a49f-951aeb871609")
-                        },
-                        new
-                        {
-                            UserId = new Guid("5ee3076b-2562-4cc3-ae72-e44f7408a058"),
-                            RoleId = new Guid("a897856b-fd7b-4bb1-ab38-d38e6a607950")
-                        });
                 });
 
             modelBuilder.Entity("InovasyonCourse.CoreLayer.Courses", b =>

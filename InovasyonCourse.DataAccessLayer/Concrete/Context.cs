@@ -1,4 +1,7 @@
 ﻿using InovasyonCourse.CoreLayer;
+using InovasyonCourse.CoreLayer.Enums;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -9,30 +12,27 @@ using System.Threading.Tasks;
 
 namespace InovasyonCourse.DataAccessLayer.Concrete
 {
-	public class Context : DbContext
+	public class Context : IdentityDbContext<AppNetUser,AppNetRole,Guid>
 	{
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public Context(DbContextOptions<Context> options) : base(options)
 		{
-			optionsBuilder.UseSqlServer("server=DESKTOP-491CL38\\YAYLALISERVER22;database=INVSYNCoursesDB;Trusted_Connection=True;");
 		}
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+		//	protected override void OnModelCreating(ModelBuilder modelBuilder)
+		//	{
+		//		modelBuilder.Entity<IdentityUser>()
+		//.HasKey(u => u.Id);
+		//		modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+		//		modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+		//		modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+
+
+		//	}
+		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			modelBuilder.Entity<UserCourse>()
-	   .HasKey(uc => new { uc.UserId, uc.CourseId });//tabloda birden fazla ıd var ara tablo olduğu için onu bildirdim. Bu tablo öğrenci kursu seçebilmesi için
-
-			modelBuilder.Entity<UserCourse>()
-				.HasOne(uc => uc.Users)
-				.WithMany(u => u.UserCourses)
-				.HasForeignKey(uc => uc.UserId);
-
-			modelBuilder.Entity<UserCourse>()
-				.HasOne(uc => uc.Courses)
-				.WithMany(c => c.UserCourses) 
-				.HasForeignKey(uc => uc.CourseId);
+			SeedData.SeedData.Seed(builder);
+			base.OnModelCreating(builder);
 		}
 		public virtual DbSet<Courses> Courses { get; set; } = null!;
-		public virtual DbSet<Users> Users { get; set; } = null!;
-		public virtual DbSet<UserCourse> UserCourses { get; set; } = null!;
-
 	}
 }

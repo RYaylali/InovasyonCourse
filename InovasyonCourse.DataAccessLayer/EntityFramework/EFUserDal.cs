@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 
 namespace InovasyonCourse.DataAccessLayer.EntityFramework
 {
-	public class EFUserDal :GenericRepository<Users>,IUserDal
+	public class EFUserDal :GenericRepository<AppNetUser>,IUserDal
 	{
-        public EFUserDal(Context context):base(context)
+		private readonly Context _context;
+		public EFUserDal(Context context):base(context)
         {
-            
+			_context = context;   
         }
-    }
+		public List<AppNetUser> GetUsersList()
+		{
+			return _context.Users.ToList();
+		}
+	}
 }

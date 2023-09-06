@@ -9,14 +9,11 @@ namespace InovasyonCourse.CoreLayer
 {
 	public class Courses
 	{
-        [Key]//Id olduğunu belirtmek için
-        public string CourseId { get; set; }
+        public Guid ID { get; set; }
+        public string CourseCode { get; set; }
         public string CourseName { get; set; }
-		//Navigasyon prop 
-		public virtual ICollection<UserCourse> UserCourses { get; set; }
-		public Courses()
-		{
-			UserCourses = new HashSet<UserCourse>();//nesneleri benzersiz olması için hashset kullandım aynı ilandan açmaması için eğer birden fazla ekleme yapılırsa hashset bir kopya tutar
-		}
-	}
+        //Navigasyon prop 
+        public Guid? UserId { get; set; }
+        public AppNetUser? Users { get; set; }
+    }
 }

@@ -2,6 +2,7 @@
 using InovasyonCourse.BussinessLayer.Abstract;
 using InovasyonCourse.BussinessLayer.Model.DTOs;
 using InovasyonCourse.CoreLayer.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace InovasyonCourse.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[AllowAnonymous]
 	public class AdminController : ControllerBase
 	{
 		private readonly IAdminService _adminService;
@@ -42,22 +44,22 @@ namespace InovasyonCourse.API.Controllers
 			return BadRequest("Not list");
 		}
 		[HttpPost("CreateStudent")]
-		public IActionResult CreateStudent(AddStudentDTO model)
+		public async Task<IActionResult> CreateStudent(AddStudentDTO model)
 		{
 			if (model is not null)
 			{
-				_adminService.CreateStudent(model);
+				await _adminService.CreateStudent(model);
 				return Ok("Create Student");
 			}
 			return BadRequest("Not create");
 		}
 		[HttpPut("UpdateStudent")]
 		public IActionResult UpdateStudent(UpdateStudentDTO model)
-			{
+		{
 			var student = _studentService.GetByCodeStudent(model.UserId);
 			if (student is not null)
 			{
-				var updateStudent=_mapper.Map<UpdateStudentDTO>(model);
+				var updateStudent = _mapper.Map<UpdateStudentDTO>(model);
 				_adminService.UpdateStudent(updateStudent);
 				return Ok("Update Student");
 			}
@@ -75,8 +77,8 @@ namespace InovasyonCourse.API.Controllers
 			{
 
 				throw;
-			}	
-			
+			}
+
 		}
 	}
 }

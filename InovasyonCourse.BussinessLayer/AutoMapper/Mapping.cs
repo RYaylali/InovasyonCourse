@@ -14,12 +14,11 @@ namespace InovasyonCourse.BussinessLayer.AutoMapper
 	{
         public Mapping()
         {
-			CreateMap<Users, AddStudentDTO>().ReverseMap();
-			CreateMap<Users, UpdateStudentDTO>().ReverseMap();
-			CreateMap<Users, LoginVM>().ReverseMap();
+			CreateMap<AppNetUser, AddStudentDTO>().ReverseMap();
+			CreateMap<AppNetUser, UpdateStudentDTO>().ReverseMap();
+			CreateMap<AppNetUser, LoginVM>().ReverseMap();
 			CreateMap<Courses, StudentMachingCourseDTO>().ReverseMap();
 			CreateMap<StudentMachingCourseDTO, UpdateStudentDTO>().ReverseMap();
-			CreateMap<UserCourse, MyCourseDto>().ReverseMap();
 		}
     }
 }

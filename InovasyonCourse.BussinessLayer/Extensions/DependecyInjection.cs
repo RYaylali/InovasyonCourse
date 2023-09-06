@@ -17,7 +17,6 @@ namespace InovasyonCourse.BussinessLayer.Extensions
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			services.AddTransient<IAdminService, AdminService>();
 			services.AddTransient<IStudentService, StudentService>();
-			services.AddTransient<IUserCourseService, UserCourseManager>();
 			//Buraya servislerin dönüşümü yazılacak
 			return services;
 		}

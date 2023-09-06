@@ -11,18 +11,15 @@ namespace InovasyonCourse.DataAccessLayer.Repositories
 	public class GenericRepository<T> : IGenericDal<T> where T : class
 	{
 		private readonly Context _context;
-
 		public GenericRepository(Context context)
 		{
 			_context = context;
 		}
-
 		public void Delete(T entity)
 		{
 			_context.Remove(entity);
 			_context.SaveChanges();
 		}
-
 		public T GetByCodeStudentID(long id)
 		{
 			return _context.Set<T>().Find(id);
@@ -31,18 +28,15 @@ namespace InovasyonCourse.DataAccessLayer.Repositories
 		{
 			return _context.Set<T>().Find(id);
 		}
-
 		public List<T> GetList()
 		{
 			return _context.Set<T>().ToList();
 		}
-
 		public void Insert(T entity)
 		{
 			_context.Add(entity);
 			_context.SaveChanges();
 		}
-
 		public void Update(T entity)
 		{
 			_context.Update(entity);

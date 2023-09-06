@@ -4,6 +4,7 @@ using InovasyonCourse.BussinessLayer.Model.DTOs;
 using InovasyonCourse.CoreLayer;
 using InovasyonCourse.CoreLayer.Enums;
 using InovasyonCourse.DataAccessLayer.Abstract;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,33 @@ namespace InovasyonCourse.BussinessLayer.Concrete
 		private readonly ICourseDal _courseDal;
 		private readonly IUserDal _userDal;
 		private readonly IMapper _mapper;
+		private readonly UserManager<AppNetUser> _userManager;
 
-		public AdminService(ICourseDal courseDal, IUserDal userDal, IMapper mapper)
+		public AdminService(ICourseDal courseDal, IUserDal userDal, IMapper mapper, UserManager<AppNetUser> userManager)
 		{
 			_courseDal = courseDal;
 			_userDal = userDal;
 			_mapper = mapper;
+			_userManager = userManager;
 		}
-		public string CreateStudent(AddStudentDTO model)
+		public async Task<string> CreateStudent(AddStudentDTO model)
 		{
 			if (model is not null)
 			{
-				var create = _mapper.Map<Users>(model);
-				create.Role = Role.Student;
-				_userDal.Insert(create);
-				return "Create Student";
+				var user = _mapper.Map<AddStudentDTO,AppNetUser>(model);
+				var result = await _userManager.CreateAsync(user, model.Password);
+				if (result.Succeeded)
+				{
+					var passwordHash = _userManager.PasswordHasher.HashPassword(user, model.Password);
+					user.PasswordHash = passwordHash;
+					await _userManager.UpdateAsync(user);
+					await _userManager.AddToRoleAsync(user, "Student");
+					return "Create Student";
+				}
 			}
-			return "student creation failed";
+			return "Student creation failed";
 		}
+
 
 		public bool DeleteStudent(long id)
 		{
@@ -51,35 +61,32 @@ namespace InovasyonCourse.BussinessLayer.Concrete
 		{
 			return _courseDal.GetList();
 		}
-		public List<Users> GetUsers()
+		public List<AppNetUser> GetUsers()
 		{
-			return _userDal.GetList();
+			return _userDal.GetUsersList();
 		}
 
-		public List<Users> GetStudents()
+		public List<AppNetUser> GetStudents()
 		{
-			List<Users> students = new List<Users>();
+			List<AppNetUser> students = new List<AppNetUser>();
 			var getUsers = _userDal.GetList();
 			foreach (var student in getUsers)
 			{
-				if (student.Role == Role.Student)
-				{
+			
 					students.Add(student);
-				}
+				
 			}
 			return students;
 		}
 
 		public bool UpdateStudent(UpdateStudentDTO model)
 		{
-			 var existingUser = _userDal.GetByCodeStudentID(model.UserId);
+			var existingUser = _userDal.GetByCodeStudentID(model.UserId);
 			if (existingUser != null)
 			{
 				existingUser.FirstName = model.FirstName;
 				existingUser.LastName = model.LastName;
 				existingUser.BirthDate = model.BirthDate;
-				existingUser.Password = model.Password;
-				existingUser.Role=Role.Student;
 				_userDal.Update(existingUser);
 				return true;
 			}
